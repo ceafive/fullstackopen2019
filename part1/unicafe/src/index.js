@@ -9,17 +9,14 @@ const Button = ({ handleClick, text }) => {
   )
 }
 
-const Statistics = ({ number, text }) => {
+const Statistics = ({ text, number }) => {
   return (
-    <div>
-      <span>{text}</span>
-      <span> </span>
-      <span>{number}</span>
-    </div>
-
+    <tr>
+      <td>{text}</td>
+      <td>{number}</td>
+    </tr>
   )
 }
-
 
 const App = () => {
   // save clicks of each button to own state
@@ -28,30 +25,14 @@ const App = () => {
   const [bad, setBad] = useState(0)
   const [total, setTotal] = useState(0)
 
-
   const handleClick = (value, runLogic) => {
     //Logic for changing state
-    const newValue = value + 1
-    runLogic(newValue)
+    runLogic(value + 1)
     setTotal(total + 1)
   }
 
-  const getTotal = () => {
-    return total
-  }
-
-  const getAverage = () => {
-    return total / 3
-  }
-
-  const positivePercentage = () => {
-    const percentage = (good / total) * 100
-    return total === 0 ? 0 : percentage;
-
-  }
-
   return (
-    <div>
+    <>
       <div>
         <h1>give feedback</h1>
         <Button handleClick={() => handleClick(good, setGood)} text="good" />
@@ -59,16 +40,24 @@ const App = () => {
         <Button handleClick={() => handleClick(bad, setBad)} text="bad" />
       </div>
 
-      <div>
-        <h1>statistics</h1>
-        <Statistics text="good" number={good} />
-        <Statistics text="neutral" number={neutral} />
-        <Statistics text="bad" number={bad} />
-        <Statistics text="all" number={getTotal()} />
-        <Statistics text="average" number={getAverage()} />
-        <Statistics text="positive" number={positivePercentage()} />
-      </div>
-    </div>
+      <table>
+        <thead>
+          <tr>
+            <th><h1>statistics</h1></th>
+          </tr>
+        </thead>
+
+        <tbody >
+          <Statistics text="good" number={good} />
+          <Statistics text="neutral" number={neutral} />
+          <Statistics text="bad" number={bad} />
+          <Statistics text="all" number={total} />
+          <Statistics text="average" number={total / 3} />
+          <Statistics text="positive" number={total === 0 ? 0 : (good / total) * 100 + '%'} />
+        </tbody>
+      </table>
+
+    </>
   )
 }
 
