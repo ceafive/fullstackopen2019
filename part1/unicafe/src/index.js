@@ -9,7 +9,7 @@ const Button = ({ handleClick, text }) => {
   )
 }
 
-const Display = ({ number, text }) => {
+const Statistics = ({ number, text }) => {
   return (
     <div>
       <span>{text}</span>
@@ -19,6 +19,7 @@ const Display = ({ number, text }) => {
 
   )
 }
+
 
 const App = () => {
   // save clicks of each button to own state
@@ -60,12 +61,12 @@ const App = () => {
 
       <div>
         <h1>statistics</h1>
-        <Display text="good" number={good} />
-        <Display text="neutral" number={neutral} />
-        <Display text="bad" number={bad} />
-        <Display text="all" number={getTotal()} />
-        <Display text="average" number={getAverage()} />
-        <Display text="positive" number={positivePercentage()} />
+        <Statistics text="good" number={good} />
+        <Statistics text="neutral" number={neutral} />
+        <Statistics text="bad" number={bad} />
+        <Statistics text="all" number={getTotal()} />
+        <Statistics text="average" number={getAverage()} />
+        <Statistics text="positive" number={positivePercentage()} />
       </div>
     </div>
   )
