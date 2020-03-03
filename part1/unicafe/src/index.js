@@ -25,10 +25,27 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [total, setTotal] = useState(0)
 
 
-  const handleClick = (value, runFunction) => {
-    runFunction(value + 1)
+  const handleClick = (value, runLogic) => {
+    //Logic for changing state
+    const newValue = value + 1
+    runLogic(newValue)
+    setTotal(total + 1)
+  }
+
+  const getTotal = () => {
+    return total
+  }
+
+  const getAverage = () => {
+    return total / 3
+  }
+
+  const positivePercentage = () => {
+    const percentage = (good / total) * 100
+    return total === 0 ? 0 : percentage;
 
   }
 
@@ -43,9 +60,12 @@ const App = () => {
 
       <div>
         <h1>statistics</h1>
-        <Display number={good} text="good" />
-        <Display number={neutral} text="neutral" />
-        <Display number={bad} text="bad" />
+        <Display text="good" number={good} />
+        <Display text="neutral" number={neutral} />
+        <Display text="bad" number={bad} />
+        <Display text="all" number={getTotal()} />
+        <Display text="average" number={getAverage()} />
+        <Display text="positive" number={positivePercentage()} />
       </div>
     </div>
   )
