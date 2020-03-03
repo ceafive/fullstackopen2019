@@ -51,6 +51,7 @@ const App = ({ anecdotes }) => {
       </div>
 
     </div >
+
   )
 }
 
