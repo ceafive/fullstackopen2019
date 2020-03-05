@@ -23,9 +23,13 @@ const App = () => {
     ]
   }
 
+
+  const totalExercises = course.parts.map(val => val.exercises).reduce((acc, val) => acc + val, 0)
+
   return (
     <div>
       <Course course={course} />
+      <h4>total of {totalExercises} exercises</h4>
     </div>
   )
 }
