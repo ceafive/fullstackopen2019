@@ -18,13 +18,11 @@ const App = ({ anecdotes }) => {
       [selected]: votes[selected] + 1
     }
     setVotes(newVotes)
-    maxVote()
   }
 
   //Find highest vote
   const maxVote = () => {
-    const newArray = Object.values(votes)
-    const maxVote = Math.max(...newArray)
+    const maxVote = Math.max(...Object.values(votes))
 
     //Display anecdote with highest 
     for (let key in votes) {
