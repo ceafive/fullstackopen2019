@@ -22,18 +22,22 @@ const App = () => {
 
     if (value.length !== 0 && res.length > 10) {
       return setFilter(["Too many matches, specify another filter"])
-    } else if (value.length !== 0 && res.length > 1 && res.length <= 10) {
-      return setFilter(res)
-    } else if (value.length !== 0 && res.length === 1) {
+    } else if (value.length !== 0 && res.length >= 1 && res.length <= 10) {
       return setFilter(res)
     } else {
       return setFilter([])
     }
   }
 
+  //Handle view of each country
+  const displayCountry = (name) => {
+    const found = countries.find(country => country.name === name)
+    setFilter([found])
+  }
+
   const displayResults = () => {
     if (filtered.length !== 1) {
-      return filtered.map(country => <p key={country.name}>{country.name}</p>)
+      return filtered.map(country => <p key={country.name}> <span>{country.name}</span> <button onClick={() => displayCountry(country.name)}>show</button> </p>)
     } else if (typeof filtered[0] === 'string' && filtered.length === 1) {
       return <p>{filtered[0]}</p>
     } else {
