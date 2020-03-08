@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const GetWeather = ({ res, setWeather }) => {
   (async () => await axios
-    .get(`http://api.weatherstack.com/current?access_key=33f4856ace9e5bc8217202fb89d392ef&query=${res[0].name}`)
+    .get(`http://api.weatherstack.com/current?access_key=${process.env.REACT_APP_API_KEY}&query=${res[0].name}`)
     .then(res => {
       const { data } = res
       setWeather(data)
