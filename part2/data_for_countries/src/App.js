@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import SearchCountry from './components/SearchCountry'
+import CityData from './components/CityData'
+import { DisplayWeather } from './components/CityWeather'
+
 const App = () => {
   const [countries, setCountries] = useState([])
+  const [weather, setWeather] = useState([])
   const [filtered, setFilter] = useState([])
+  const [show, setShow] = useState(false)
 
   //Fetch persons from database
   useEffect(() => {
@@ -14,60 +20,16 @@ const App = () => {
       })
   }, [])
 
-  //Handler for search results
-  const searchCountry = (e) => {
-    e.preventDefault();
-    const value = e.target.value
-    const res = countries.filter(country => country.name.toUpperCase().includes(value.toUpperCase()))
-
-    if (value.length !== 0 && res.length > 10) {
-      return setFilter(["Too many matches, specify another filter"])
-    } else if (value.length !== 0 && res.length >= 1 && res.length <= 10) {
-      return setFilter(res)
-    } else {
-      return setFilter([])
-    }
-  }
-
-  //Handle view of each country
-  const displayCountry = (name) => {
-    const found = countries.find(country => country.name === name)
-    setFilter([found])
-  }
-
-  const displayResults = () => {
-    if (filtered.length !== 1) {
-      return filtered.map(country => <p key={country.name}> <span>{country.name}</span> <button onClick={() => displayCountry(country.name)}>show</button> </p>)
-    } else if (typeof filtered[0] === 'string' && filtered.length === 1) {
-      return <p>{filtered[0]}</p>
-    } else {
-      return filtered.map(country =>
-        <div key={country.name}>
-          <>
-            <h1>{country.name}</h1>
-            <p><span>capital</span>&nbsp;<span>{country.capital}</span></p>
-            <p><span>population</span>&nbsp;<span>{country.population}</span></p>
-          </>
-          <>
-            <h2>languages</h2>
-            <ul>
-              {country.languages.map(language => <li key={language.name}>{language.name}</li>)}
-            </ul>
-          </>
-          <>
-            <img src={country.flag} alt={country.name}></img>
-          </>
-        </div>
-      )
-    }
-  }
 
   return (
     <div>
       <h2>Country Data</h2>
-      find countries: <input onChange={searchCountry} />
+      find countries: <input onChange={(event) => SearchCountry({ event, countries, setShow, setFilter, setWeather })} />
       <>
-        {displayResults()}
+        {CityData({ filtered, setFilter, setShow, setWeather })}
+      </>
+      <>
+        {DisplayWeather({ show, weather })}
       </>
     </div>
   )
