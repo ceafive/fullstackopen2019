@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Search from './components/Search'
 import Form from './components/Form'
 import Results from './components/Results'
-import axios from 'axios'
+
+import { getAllPersons } from './services/persons'
+
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -12,14 +14,11 @@ const App = () => {
 
   //Fetch persons from database
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/persons")
-      .then(res => {
-        console.log(res.data)
-        setPersons(res.data)
-        setFilter(res.data)
+    getAllPersons()
+      .then(data => {
+        setPersons(data)
+        setFilter(data)
       })
-
   }, [])
 
   return (

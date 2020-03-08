@@ -1,7 +1,9 @@
 import React from 'react'
 
+import { insertPerson } from '../services/persons'
+
 const Form = (props) => {
-  const { persons, newName, newNumber, setNewName, setNumber, setPersons, filter, setFilter } = props
+  const { persons, setPersons, newName, setNewName, newNumber, setNumber, filter, setFilter } = props
 
   const addName = (e) => {
     e.preventDefault();
@@ -11,15 +13,16 @@ const Form = (props) => {
     }
 
     const newEntry = {
-      id: persons.length + 1,
       name: newName,
       number: newNumber
     }
+    insertPerson(newEntry).then(data => {
+      setPersons(persons.concat(data))
+      setFilter(filter.concat(data))
+      setNewName('')
+      setNumber('')
+    })
 
-    setPersons(persons.concat(newEntry))
-    setFilter(filter.concat(newEntry))
-    setNewName('')
-    setNumber('')
   }
 
   return (
