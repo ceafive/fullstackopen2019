@@ -29,7 +29,7 @@ const Form = (props) => {
           setNewName('')
           setNumber('')
         }).catch(e => {
-          setNotification({ msg: `${found.name} has been removed from server`, status: "failed" })
+          setNotification({ msg: `${found.name} has already been removed from server`, status: "failed" })
           setTimeout(() => {
             setNotification(null)
           }, 2000)
