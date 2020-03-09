@@ -1,8 +1,8 @@
 import React from 'react'
-import { getAllPersons, insertPerson, editPerson } from '../services/persons'
+import { insertPerson, editPerson } from '../services/persons'
 
 const Form = (props) => {
-  const { persons, setPersons, newName, setNewName, newNumber, setNumber, setFilter } = props
+  const { persons, setPersons, newName, setNewName, newNumber, setNumber, setFilter, setNotification } = props
 
   const addName = (e) => {
     e.preventDefault();
@@ -20,6 +20,10 @@ const Form = (props) => {
         }
         editPerson(existing.id, existing).then(data => {
           const newArray = persons.map(person => person.id !== existing.id ? person : data)
+          setNotification(`Edited ${data.name} number`)
+          setTimeout(() => {
+            setNotification(null)
+          }, 2000)
           setPersons(newArray)
           setFilter(newArray)
           setNewName('')
@@ -28,6 +32,10 @@ const Form = (props) => {
       }
     } else {
       insertPerson(newEntry).then(data => {
+        setNotification(`Added ${data.name} to phonebook`)
+        setTimeout(() => {
+          setNotification(null)
+        }, 2000)
         setPersons(persons.concat(data))
         setFilter(persons.concat(data))
         setNewName('')

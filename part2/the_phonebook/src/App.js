@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Search from './components/Search'
 import Form from './components/Form'
 import Results from './components/Results'
+import Notification from './components/Notification'
 
 import { getAllPersons } from './services/persons'
 
@@ -11,6 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNumber] = useState('')
   const [filter, setFilter] = useState(persons)
+  const [notification, setNotification] = useState(null)
 
   //Fetch persons from database
   useEffect(() => {
@@ -24,9 +26,10 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification notification={notification} />
       <Search persons={persons} setFilter={setFilter} />
-      <Form persons={persons} newName={newName} newNumber={newNumber} setNewName={setNewName} setNumber={setNumber} setPersons={setPersons} setFilter={setFilter} />
-      <Results filter={filter} setPersons={setPersons} setFilter={setFilter} />
+      <Form persons={persons} newName={newName} newNumber={newNumber} setNewName={setNewName} setNumber={setNumber} setPersons={setPersons} setFilter={setFilter} setNotification={setNotification} />
+      <Results filter={filter} setPersons={setPersons} setFilter={setFilter} setNotification={setNotification} />
     </div>
   )
 }
