@@ -3,12 +3,14 @@ import { getAllPersons, deletePerson } from '../services/persons'
 
 const Results = ({ filter, setPersons, setFilter }) => {
   const deleteName = (id) => {
-    deletePerson(id).then(data => {
-      getAllPersons().then(data => {
-        setPersons(data)
-        setFilter(data)
+    if (window.confirm("Do you really want to delete person?")) {
+      deletePerson(id).then(data => {
+        getAllPersons().then(data => {
+          setPersons(data)
+          setFilter(data)
+        })
       })
-    })
+    }
   }
 
   return (
