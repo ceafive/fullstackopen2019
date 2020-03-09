@@ -19,20 +19,17 @@ const Form = (props) => {
           number: newNumber
         }
         editPerson(existing.id, existing).then(data => {
-          getAllPersons().then(data => {
-            setPersons(data)
-            setFilter(data)
-          })
+          const newArray = persons.map(person => person.id !== existing.id ? person : data)
+          setPersons(newArray)
+          setFilter(newArray)
           setNewName('')
           setNumber('')
         })
       }
     } else {
       insertPerson(newEntry).then(data => {
-        getAllPersons().then(data => {
-          setPersons(data)
-          setFilter(data)
-        })
+        setPersons(persons.concat(data))
+        setFilter(persons.concat(data))
         setNewName('')
         setNumber('')
 
@@ -42,7 +39,7 @@ const Form = (props) => {
 
   return (
     <div>
-      <h2>add a new</h2>
+      <h2>Add a new</h2>
       <form onSubmit={addName}>
         <div>
           name: <input value={newName} onChange={(e) => setNewName(e.target.value)} required />
