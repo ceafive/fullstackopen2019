@@ -28,6 +28,11 @@ const Form = (props) => {
           setFilter(newArray)
           setNewName('')
           setNumber('')
+        }).catch(e => {
+          setNotification({ msg: `${found.name} has been removed from server`, status: "failed" })
+          setTimeout(() => {
+            setNotification(null)
+          }, 2000)
         })
       }
     } else {
