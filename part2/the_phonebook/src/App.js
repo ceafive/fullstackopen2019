@@ -25,8 +25,8 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Search persons={persons} setFilter={setFilter} />
-      <Form persons={persons} newName={newName} newNumber={newNumber} setNewName={setNewName} setNumber={setNumber} setPersons={setPersons} filter={filter} setFilter={setFilter} />
-      <Results filter={filter} />
+      <Form persons={persons} newName={newName} newNumber={newNumber} setNewName={setNewName} setNumber={setNumber} setPersons={setPersons} setFilter={setFilter} />
+      <Results filter={filter} setPersons={setPersons} setFilter={setFilter} />
     </div>
   )
 }

@@ -1,9 +1,8 @@
 import React from 'react'
-
 import { insertPerson } from '../services/persons'
 
 const Form = (props) => {
-  const { persons, setPersons, newName, setNewName, newNumber, setNumber, filter, setFilter } = props
+  const { persons, setPersons, newName, setNewName, newNumber, setNumber, setFilter } = props
 
   const addName = (e) => {
     e.preventDefault();
@@ -11,14 +10,14 @@ const Form = (props) => {
     if (found) {
       return alert(`${newName} is already added to the phonebook`)
     }
-
     const newEntry = {
       name: newName,
       number: newNumber
     }
+
     insertPerson(newEntry).then(data => {
       setPersons(persons.concat(data))
-      setFilter(filter.concat(data))
+      setFilter(persons.concat(data))
       setNewName('')
       setNumber('')
     })

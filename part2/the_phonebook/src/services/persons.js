@@ -12,10 +12,11 @@ const insertPerson = async (data) => {
   return res.data
 }
 
-// const editPerson = async (data) => {
-//   const res = await axios.post(`${baseURL}`, data)
-//   console.log(res)
-//   return res.data
-// }
+const deletePerson = async (id) => {
+  if (window.confirm("Do you really want to delete person?")) {
+    const res = await axios.delete(`${baseURL}/${id}`)
+    return res.data
+  }
+}
 
-export { getAllPersons, insertPerson }
+export { getAllPersons, insertPerson, deletePerson }
